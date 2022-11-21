@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ViewProps, ViewStyle } from 'react-native';
 
-const CircleButton: React.FC<PropsWithChildren> = ({ children }) => {
+const CircleButton: React.FC<PropsWithChildren & { style?: object }> = ({ children, style }) => {
 	return (
-		<View style={styles.circleButton}>
+		<View style={[styles.circleButton, style]}>
 			<Text style={styles.circleButtonLabel}>{children}</Text>
 		</View>
 	);
