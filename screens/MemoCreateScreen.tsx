@@ -1,0 +1,41 @@
+import React from 'react';
+import { AntDesign } from '@expo/vector-icons';
+import {
+    StyleSheet, TextInput, View, KeyboardAvoidingView
+} from 'react-native';
+import AppBar from '../components/AppBar';
+import CircleButton from '../components/CircleButton';
+
+const MemoCreateScreen = () => {
+    return (
+        // キーボード表示時、表示部分が押し上げられる
+        <KeyboardAvoidingView style={styles.container} behavior="height">
+            <AppBar />
+            <View style={styles.inputContainer}>
+                <TextInput value="" multiline style={styles.input} />
+            </View>
+            <CircleButton>
+                <AntDesign name="check" size={24} color="white" />
+            </CircleButton>
+        </KeyboardAvoidingView>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    inputContainer: {
+        paddingHorizontal: 27,
+        paddingVertical: 32,
+        flex: 1,
+    },
+    input: {
+        flex: 1,
+        textAlignVertical: 'top',
+        fontSize: 16,
+        lineHeight: 24,
+    }
+});
+
+export default MemoCreateScreen;
