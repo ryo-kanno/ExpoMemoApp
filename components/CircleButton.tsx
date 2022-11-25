@@ -1,11 +1,17 @@
-import React, { PropsWithChildren } from 'react';
-import { StyleSheet, Text, View, ViewProps, ViewStyle } from 'react-native';
+import React, { PropsWithChildren, ReactNode } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-const CircleButton: React.FC<PropsWithChildren & { style?: object }> = ({ children, style }) => {
+export interface CircleButtonProps {
+	children: ReactNode,
+	style?: object,
+	onPress?: () => void,
+}
+
+const CircleButton = ({ children, style, onPress }: CircleButtonProps) => {
 	return (
-		<View style={[styles.circleButton, style]}>
+		<TouchableOpacity style={[styles.circleButton, style]} onPress={onPress}>
 			<Text style={styles.circleButtonLabel}>{children}</Text>
-		</View>
+		</TouchableOpacity>
 	);
 };
 
