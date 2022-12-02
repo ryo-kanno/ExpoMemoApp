@@ -1,20 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import AppBar from '../components/AppBar';
 import Button from '../components/Button';
+import { RootStackParamList } from '../App';
 
 const LoginScreen = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  // メールとパスワードの値を保持する
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <View style={styles.container}>
-      <AppBar />
       <View style={styles.inner}>
         <Text style={styles.title}>ログイン</Text>
-        <TextInput style={styles.input} value="Email Address" />
-        <TextInput style={styles.input} value="Password" />
-        <Button label="Submit" onPress={() => { }} />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => { setEmail(text) }}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder='Email Address'
+          textContentType='emailAddress'
+        />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={(text) => { setPassword(text) }}
+          autoCapitalize="none"
+          placeholder='Password'
+          secureTextEntry
+          textContentType='password'
+        />
+        <Button
+          label="Submit"
+          onPress={() => {
+            // ナビゲーションの履歴をリセット
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'MemoList' }]
+            });
+          }}
+        />
         <View style={styles.footer}>
           <Text style={styles.footerText}>未登録の方はこちら</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'SignUp' }]
+            });
+          }}>
             <Text style={styles.footerLink}>会員登録</Text>
           </TouchableOpacity>
         </View>

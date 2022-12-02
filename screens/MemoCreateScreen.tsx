@@ -3,10 +3,13 @@ import { AntDesign } from '@expo/vector-icons';
 import {
 	StyleSheet, TextInput, View, KeyboardAvoidingView, Keyboard, Platform, TouchableWithoutFeedback
 } from 'react-native';
-import AppBar from '../components/AppBar';
 import CircleButton from '../components/CircleButton';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 
 const MemoCreateScreen = () => {
+	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 	return (
 		// キーボード表示時、表示部分が押し上げられる
 		<KeyboardAvoidingView
@@ -15,11 +18,10 @@ const MemoCreateScreen = () => {
 		>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<View style={styles.inner}>
-					<AppBar />
 					<View style={styles.inputContainer}>
 						<TextInput value="" multiline style={styles.input} />
 					</View>
-					<CircleButton>
+					<CircleButton onPress={() => { navigation.navigate('MemoList') }}>
 						<AntDesign name="check" size={24} color="white" />
 					</CircleButton>
 				</View>

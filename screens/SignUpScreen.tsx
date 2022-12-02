@@ -1,20 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text, TextInput, Alert, TouchableOpacity } from 'react-native';
-import AppBar from '../components/AppBar';
+import { RootStackParamList } from '../App';
 import Button from '../components/Button';
 
 const SignUpScreen = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <View style={styles.container}>
-      <AppBar />
       <View style={styles.inner}>
         <Text style={styles.title}>会員登録</Text>
-        <TextInput style={styles.input} value="Email Address" />
-        <TextInput style={styles.input} value="Password" />
-        <Button label="Submit" onPress={() => { Alert.alert('Submit') }} />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => { setEmail(text) }}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder='Email Address'
+          textContentType='emailAddress'
+        />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={(text) => { setPassword(text) }}
+          autoCapitalize="none"
+          placeholder='Password'
+          secureTextEntry
+          textContentType='password'
+        />
+        <Button
+          label="Submit"
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'MemoList' }]
+            });
+          }}
+        />
         <View style={styles.footer}>
           <Text style={styles.footerText}>登録済の方はこちら</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'LogIn' }]
+            });
+          }}>
             <Text style={styles.footerLink}>ログイン</Text>
           </TouchableOpacity>
         </View>
