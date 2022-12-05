@@ -12,6 +12,7 @@
     "@expo/vector-icons": "^13.0.0",
     "@react-navigation/native": "^6.0.14",
     "@react-navigation/native-stack": "^6.9.2",
+    "axios": "^1.2.0",
     "expo": "~47.0.6",
     "expo-status-bar": "~1.4.2",
     "prop-types": "^15.8.1",
