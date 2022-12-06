@@ -9,6 +9,7 @@ const SignUpScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   return (
     <View style={styles.container}>
       <View style={styles.inner}>

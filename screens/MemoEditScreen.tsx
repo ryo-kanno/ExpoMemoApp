@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import {
 	StyleSheet, TextInput, View, KeyboardAvoidingView, Keyboard, Platform, TouchableWithoutFeedback, Alert
@@ -10,7 +10,7 @@ import { RootStackParamList } from '../App';
 
 const MemoEditScreen = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
+	const [memo, setMemo] = useState('');
 	return (
 		// キーボード表示時、表示部分が押し上げられる
 		<KeyboardAvoidingView
@@ -20,7 +20,12 @@ const MemoEditScreen = () => {
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<View style={styles.inner}>
 					<View style={styles.inputContainer}>
-						<TextInput value="買い物リスト" multiline style={styles.input} />
+						<TextInput
+							value={memo}
+							multiline
+							style={styles.input}
+							onChangeText={(text) => { setMemo(text) }}
+						/>
 					</View>
 					<CircleButton onPress={() => { Alert.alert('更新しました'); navigation.goBack() }}>
 						<AntDesign name="check" size={24} color="white" />
@@ -50,6 +55,7 @@ const styles = StyleSheet.create({
 		textAlignVertical: 'top',
 		fontSize: 16,
 		lineHeight: 24,
+		maxHeight: '50%'
 	}
 });
 
