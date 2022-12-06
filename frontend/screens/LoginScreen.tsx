@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text, TextInput, Alert, TouchableOpacity } from 'react-native';
-import { RootStackParamList } from '../App';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import Button from '../components/Button';
+import { RootStackParamList } from '../../App';
 
-const SignUpScreen = () => {
+const LoginScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  // メールとパスワードの値を保持する
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
-        <Text style={styles.title}>会員登録</Text>
+        <Text style={styles.title}>ログイン</Text>
         <TextInput
           style={styles.input}
           value={email}
@@ -35,6 +37,7 @@ const SignUpScreen = () => {
         <Button
           label="Submit"
           onPress={() => {
+            // ナビゲーションの履歴をリセット
             navigation.reset({
               index: 0,
               routes: [{ name: 'MemoList' }]
@@ -42,14 +45,14 @@ const SignUpScreen = () => {
           }}
         />
         <View style={styles.footer}>
-          <Text style={styles.footerText}>登録済の方はこちら</Text>
+          <Text style={styles.footerText}>未登録の方はこちら</Text>
           <TouchableOpacity onPress={() => {
             navigation.reset({
               index: 0,
-              routes: [{ name: 'LogIn' }]
+              routes: [{ name: 'SignUp' }]
             });
           }}>
-            <Text style={styles.footerLink}>ログイン</Text>
+            <Text style={styles.footerLink}>会員登録</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -96,4 +99,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignUpScreen;
+export default LoginScreen;

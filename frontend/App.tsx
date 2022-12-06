@@ -2,12 +2,12 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import LoginScreen from './screens/LoginScreen';
-import MemoCreateScreen from './screens/MemoCreateScreen';
-import MemoDetailScreen from './screens/MemoDetailScreen';
-import MemoEditScreen from './screens/MemoEditScreen';
-import MemoListScreen from './screens/MemoListScreeen';
-import SignUpScreen from './screens/SignUpScreen';
+import LoginScreen from './frontend/screens/LoginScreen';
+import MemoCreateScreen from './frontend/screens/MemoCreateScreen';
+import MemoDetailScreen from './frontend/screens/MemoDetailScreen';
+import MemoEditScreen from './frontend/screens/MemoEditScreen';
+import MemoListScreen from './frontend/screens/MemoListScreeen';
+import SignUpScreen from './frontend/screens/SignUpScreen';
 
 const Stack = createNativeStackNavigator();
 

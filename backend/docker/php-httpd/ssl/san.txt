@@ -1,0 +1,1 @@
+subjectAltName = DNS:GPDBD190246.toyo-local.co.jp
