@@ -8,21 +8,39 @@ RUN yum install -y \
     procps-ng
 # httpdと何かしら利用するパッケージをインストール
 RUN yum install -y \
-      httpd \
-      curl \
-      unzip
+    httpd \
+    curl \
+    unzip
 # httpd.conf編集 mpmをeventに設定
 COPY ./docker/php-httpd/httpd/00-mpm.conf /etc/httpd/conf.modules.d/
 COPY ./docker/php-httpd/httpd/vhost.conf /etc/httpd/conf.d/
 
 #PHPインストール 
-RUN amazon-linux-extras install -y php7.4
-#PHP Exstensionインストール laravel入れる場合php-xmlは必須。 そこに含む？ext-domを利用するらしい。。。 
-RUN yum -y install php-xml php-mbstring php-gd php-sodium
+# RUN amazon-linux-extras install -y php7.4
 
-#xdebugインストール 開発用
-RUN yum -y install php-pear php-devel gcc make
-RUN pecl install xdebug-3.1.3
+# PHP 8.1 install
+RUN amazon-linux-extras install epel -y
+RUN yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+RUN yum install -y yum-utils
+
+RUN yum-config-manager --disable 'remi-php*'
+RUN yum-config-manager --enable remi-php81
+RUN yum repolist
+
+RUN yum install -y php81 php81-php
+# 拡張モジュール
+RUN yum install -y php81-php-mbstring php81-php-mysqlnd php81-php-gd php81-php-xml php81-php-fpm php81-php-pear php81-php-devel gcc make
+
+# RUN yum install -y php81-php-mbstring php81-php-pdo php81-php-gd php81-php-mysqlnd php81-php-xml php81-php-sodium php-xml
+RUN alternatives --install /usr/bin/php php /usr/bin/php81 1
+
+# PHP Exstensionインストール laravel入れる場合php-xmlは必須。 そこに含む？ext-domを利用するらしい。。。 
+# RUN yum -y install php-xml php-mbstring php-gd php-sodium
+
+# xdebugインストール 開発用
+# 8.1用でのインストール方法が不明なため保留
+# RUN pecl install xdebug-3.1.3
+
 COPY ./docker/php-httpd/php/php.ini /etc
 
 #Composerインストール
