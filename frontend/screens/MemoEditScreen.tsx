@@ -6,7 +6,7 @@ import {
 import CircleButton from '../components/CircleButton';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
+import { RootStackParamList } from '../App';
 
 const MemoEditScreen = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();

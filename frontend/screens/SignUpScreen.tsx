@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text, TextInput, Alert, TouchableOpacity } from 'react-native';
-import { RootStackParamList } from '../../App';
+import { RootStackParamList } from '../App';
 import Button from '../components/Button';
 
 const SignUpScreen = () => {

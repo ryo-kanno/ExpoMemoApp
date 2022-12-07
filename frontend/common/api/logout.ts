@@ -4,6 +4,8 @@ import { DefaultNetworkErrorMessage } from "../constants/api";
 
 export const logout = async (): Promise<any> => {
   return new Promise((resolve, reject) => {
+    // resolve({ ErrNo: 0, Msg: "ログアウト完了" })
+
     webApiClient
       .post(`api/logout`, null, {
         headers: {

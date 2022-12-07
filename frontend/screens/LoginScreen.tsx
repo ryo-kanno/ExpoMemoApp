@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import Button from '../components/Button';
-import { RootStackParamList } from '../../App';
+import { RootStackParamList } from '../App';
 
 const LoginScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();

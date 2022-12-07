@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { RootStackParamList } from "../../App";
+import { RootStackParamList } from "../App";
 import { logout } from "../common/api/logout";
 
 const LogoutButton = () => {
@@ -29,7 +29,7 @@ const LogoutButton = () => {
   }
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => { handleLogout }}>
+    <TouchableOpacity style={styles.container} onPress={handleLogout}>
       <Text style={styles.label}>ログアウト</Text>
     </TouchableOpacity>
   );
