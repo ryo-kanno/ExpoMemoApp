@@ -11,7 +11,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=develop
       - MYSQL_PASSWORD=123123
-      - MYSQL_DATABASE=vand
+      - MYSQL_DATABASE=memo
       - TZ=Asia/Tokyo
     volumes:
       - db_data:/var/lib/mysql
@@ -28,8 +28,8 @@ services:
       - "80:80"
       - "443:443"
     #   start 一時操作用エントリポイント systemctlを実行可能にする
-    privileged: true
-    entrypoint: /sbin/init
+    # privileged: true
+    # entrypoint: /sbin/init
     #   end   一時操作用エントリポイント systemctlを実行可能にする
     volumes:
       - ./php:/var/www/html
