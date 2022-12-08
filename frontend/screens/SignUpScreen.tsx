@@ -4,11 +4,27 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { RootStackParamList } from '../App';
 import Button from '../components/Button';
+import { singUp } from '../common/api/signUp';
 
 const SignUpScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handlePress = async () => {
+    await singUp()
+      .then((res: any) => {
+        Alert.alert(res.Msg);
+      })
+      .catch((e) => {
+        Alert.alert(e);
+      });
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'MemoList' }]
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -34,12 +50,7 @@ const SignUpScreen = () => {
         />
         <Button
           label="Submit"
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'MemoList' }]
-            });
-          }}
+          onPress={handlePress}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>登録済の方はこちら</Text>

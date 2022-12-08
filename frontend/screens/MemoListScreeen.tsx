@@ -7,11 +7,23 @@ import { RootStackParamList } from '../App';
 import CircleButton from '../components/CircleButton';
 import MemoList from '../components/MemoList';
 import LogoutButton from '../components/LogoutButton';
+import { getMemoList } from '../common/api/memoList';
 
 
 const MemoListScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   useEffect(() => {
+    getMemoList()
+      .then((res: any) => {
+        // 取得したメモの表示
+
+        console.log(res.Data)
+      })
+      .catch((e) => {
+        Alert.alert(e);
+      });
+
     navigation.setOptions({
       headerRight: () => <LogoutButton />,
     });

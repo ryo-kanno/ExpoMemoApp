@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Button from '../components/Button';
 import { RootStackParamList } from '../App';
+import { login } from '../common/api/login';
 
 const LoginScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -11,6 +12,21 @@ const LoginScreen = () => {
   // メールとパスワードの値を保持する
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handlePress = async () => {
+    await login()
+      .then((res: any) => {
+        Alert.alert(res.Msg);
+      })
+      .catch((e) => {
+        Alert.alert(e);
+      });
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'MemoList' }]
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -36,13 +52,7 @@ const LoginScreen = () => {
         />
         <Button
           label="Submit"
-          onPress={() => {
-            // ナビゲーションの履歴をリセット
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'MemoList' }]
-            });
-          }}
+          onPress={handlePress}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>未登録の方はこちら</Text>

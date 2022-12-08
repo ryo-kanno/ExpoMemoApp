@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import {
-	StyleSheet, TextInput, View, KeyboardAvoidingView, Keyboard, Platform, TouchableWithoutFeedback
+	StyleSheet, TextInput, View, KeyboardAvoidingView, Keyboard, Platform, TouchableWithoutFeedback, Alert
 } from 'react-native';
 import CircleButton from '../components/CircleButton';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
+import { createMemo } from '../common/api/memoList';
 
 const MemoCreateScreen = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 	const [memo, setMemo] = useState('');
+
+	const handlePress = () => {
+		createMemo("title", "memo test")
+			.then((res: any) => {
+				Alert.alert(res.Msg);
+			})
+			.catch((e) => {
+				Alert.alert(e);
+			});
+
+		navigation.goBack();
+	};
+
 	return (
 		// キーボード表示時、表示部分が押し上げられる
 		<KeyboardAvoidingView
@@ -27,7 +41,7 @@ const MemoCreateScreen = () => {
 							onChangeText={(text) => { setMemo(text) }}
 						/>
 					</View>
-					<CircleButton onPress={() => { navigation.navigate('MemoList') }}>
+					<CircleButton onPress={handlePress}>
 						<AntDesign name="check" size={24} color="white" />
 					</CircleButton>
 				</View>

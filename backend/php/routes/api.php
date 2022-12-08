@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MemoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', function (Request $request) {
+    return response()->json([
+        'message' => 'logout complete'
+    ]);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/memo', [MemoController::class, 'getMemoList']);
+    Route::post('/create', [MemoController::class, 'createMemo']);
 });
