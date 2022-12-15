@@ -13,8 +13,11 @@ const Stack = createNativeStackNavigator();
 
 export type RootStackParamList = {
   MemoList: undefined,
-  MemoDetail: undefined,
-  MemoEdit: undefined,
+  MemoDetail: { id: number; },
+  MemoEdit: {
+    id: number;
+    memo: string;
+  },
   MemoCreate: undefined,
   LogIn: undefined,
   SignUp: undefined,

@@ -31,6 +31,30 @@ export const getMemoList = async (): Promise<any> => {
   })
 };
 
+export const getMemoDetail = async (id: number): Promise<any> => {
+  return new Promise((resolve, reject) => {
+    const token = localStorage.getItem('auth_token');
+    webApiClient.get(`/api/memo/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    })
+      .then((res: AxiosResponse<any>) => {
+        const responseData = res.data;
+        resolve({
+          ErrNo: responseData.ErrNo,
+          Msg: responseData.Msg,
+          Data: responseData,
+        })
+      })
+      .catch((err: Error | AxiosError) => {
+        err instanceof AxiosError
+          ? reject({ ErrNo: -1, Msg: DefaultNetworkErrorMessage })
+          : reject({ ErrNo: -1, Msg: err.message })
+      });
+  })
+};
+
 export const createMemo = (title: string, bodyText: string) => {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify({
@@ -40,7 +64,7 @@ export const createMemo = (title: string, bodyText: string) => {
 
     const token = localStorage.getItem('auth_token');
     console.log(token)
-    webApiClient.post(`/api/create`, body, {
+    webApiClient.post(`/api/memo/create`, body, {
       headers: {
         Authorization: `Bearer ${token}`
       },
@@ -64,6 +88,40 @@ export const createMemo = (title: string, bodyText: string) => {
   })
 }
 
+export const updateMemo = (title: string, bodyText: string, id: number) => {
+  return new Promise((resolve, reject) => {
+    const body = JSON.stringify({
+      "title": title,
+      "bodyText": bodyText,
+      "id": id,
+    });
+
+    const token = localStorage.getItem('auth_token');
+    console.log(token)
+    webApiClient.post(`/api/memo/update`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    },
+    )
+      .then((res: AxiosResponse<any>) => {
+        const responseData = res.data;
+        console.log(responseData);
+        resolve({
+          ErrNo: responseData.ErrNo,
+          Msg: responseData.Msg,
+          Data: responseData,
+        })
+        console.log('update memo')
+      })
+      .catch((err: Error | AxiosError) => {
+        err instanceof AxiosError
+          ? reject({ ErrNo: -1, Msg: DefaultNetworkErrorMessage })
+          : reject({ ErrNo: -1, Msg: err.message })
+      });
+  })
+}
+
 export const deleteMemo = (id: number) => {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify({
@@ -72,7 +130,7 @@ export const deleteMemo = (id: number) => {
 
     const token = localStorage.getItem('auth_token');
     console.log(token)
-    webApiClient.post(`/api/delete`, body, {
+    webApiClient.post(`/api/memo/delete`, body, {
       headers: {
         Authorization: `Bearer ${token}`
       },

@@ -14,15 +14,14 @@ const MemoCreateScreen = () => {
 	const [memo, setMemo] = useState('');
 
 	const handlePress = () => {
-		createMemo("title", "memo test")
+		createMemo("title", memo)
 			.then((res: any) => {
 				Alert.alert(res.Msg);
+				navigation.goBack();
 			})
 			.catch((e) => {
 				Alert.alert(e);
 			});
-
-		navigation.goBack();
 	};
 
 	return (

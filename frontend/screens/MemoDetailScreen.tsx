@@ -1,26 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import CircleButton from '../components/CircleButton';
 import { RootStackParamList } from '../App';
+import { getMemoDetail } from '../common/api/memoList';
+
 
 const MemoDetailScreen = () => {
-	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'MemoDetail'>>();
+	const route = useRoute<RouteProp<RootStackParamList, 'MemoDetail'>>();
+	const [memo, setMemo] = useState('');
+	const [date, setDate] = useState('');
+
+	useEffect(() => {
+		getMemoDetail(route.params.id)
+			.then((res: any) => {
+				setMemo(res.Data.body_text);
+				setDate(res.Data.updated_at);
+			})
+			.catch((e) => {
+				Alert.alert(e);
+			});
+	}, []);
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.memoHeader}>
 				<Text style={styles.memoTitle}>買い物リスト</Text>
-				<Text style={styles.memoDate}>2022年1月1日</Text>
+				<Text style={styles.memoDate}>{date}</Text>
 			</View>
 			<ScrollView>
-				<Text>
-					aaaaa
-					テスト文言
-				</Text>
+				<Text>{memo}</Text>
 			</ScrollView>
-			<CircleButton style={{ top: 60, bottom: 'auto' }} onPress={() => { navigation.navigate('MemoEdit') }}>
+			<CircleButton
+				style={{ top: 60, bottom: 'auto' }}
+				onPress={() => { navigation.navigate('MemoEdit', { id: route.params.id, memo: memo }) }}>
 				<AntDesign name="edit" size={24} color="white" />
 			</CircleButton>
 		</View >

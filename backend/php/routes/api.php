@@ -30,5 +30,8 @@ Route::post('/logout', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/memo', [MemoController::class, 'getMemoList']);
-    Route::post('/create', [MemoController::class, 'createMemo']);
+    Route::get('/memo/{id}', [MemoController::class, 'getMemoDetail']);
+    Route::post('/memo/create', [MemoController::class, 'createMemo']);
+    Route::post('/memo/update', [MemoController::class, 'updateMemo']);
+    Route::post('/memo/delete', [MemoController::class, 'deleteMemo']);
 });

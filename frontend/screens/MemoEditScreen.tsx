@@ -4,13 +4,27 @@ import {
 	StyleSheet, TextInput, View, KeyboardAvoidingView, Keyboard, Platform, TouchableWithoutFeedback, Alert
 } from 'react-native';
 import CircleButton from '../components/CircleButton';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
+import { updateMemo } from '../common/api/memoList';
 
 const MemoEditScreen = () => {
-	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-	const [memo, setMemo] = useState('');
+	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'MemoEdit'>>();
+	const route = useRoute<RouteProp<RootStackParamList, 'MemoEdit'>>();
+	const [memo, setMemo] = useState(route.params.memo);
+
+	const handlePress = () => {
+		updateMemo("title", memo, route.params.id)
+			.then((res: any) => {
+				Alert.alert('更新しました');
+				navigation.goBack()
+			})
+			.catch((e) => {
+				Alert.alert(e);
+			});
+	}
+
 	return (
 		// キーボード表示時、表示部分が押し上げられる
 		<KeyboardAvoidingView
@@ -27,7 +41,7 @@ const MemoEditScreen = () => {
 							onChangeText={(text) => { setMemo(text) }}
 						/>
 					</View>
-					<CircleButton onPress={() => { Alert.alert('更新しました'); navigation.goBack() }}>
+					<CircleButton onPress={handlePress}>
 						<AntDesign name="check" size={24} color="white" />
 					</CircleButton>
 				</View>
