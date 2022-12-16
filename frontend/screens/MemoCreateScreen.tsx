@@ -16,11 +16,12 @@ const MemoCreateScreen = () => {
 	const handlePress = () => {
 		createMemo("title", memo)
 			.then((res: any) => {
-				Alert.alert(res.Msg);
+				Alert.alert('メモを作成しました');
 				navigation.goBack();
 			})
 			.catch((e) => {
-				Alert.alert(e);
+				console.log('aa');
+				Alert.alert('エラーが発生しました');
 			});
 	};
 

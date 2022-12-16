@@ -10,6 +10,14 @@
       "pathMappings": {
         "/var/www/html": "${workspaceFolder}/backend/php"
       }
+    },
+    {
+      "name": "Attach to packager",
+      "cwd": "${workspaceFolder}/frontend",
+      "type": "reactnative",
+      "request": "attach",
+      // Expoのデバッグポートにアタッチ
+      "port": 19000
     }
   ]
 }

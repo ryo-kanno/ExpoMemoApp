@@ -34,7 +34,7 @@ const MemoList = ({ memos }: MemoListProps) => {
             .then((res: any) => {
             })
             .catch((e) => {
-              Alert.alert(e);
+              Alert.alert('エラーが発生しました');
             });
         }
       }

@@ -16,16 +16,18 @@ const LoginScreen = () => {
   const handlePress = async () => {
     await login()
       .then((res: any) => {
-        Alert.alert(res.Msg);
+        Alert.alert('ログインしました');
+
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemoList' }]
+        });
       })
       .catch((e) => {
-        Alert.alert(e);
+        console.log(e);
+        Alert.alert('ログインに失敗しました');
+        return;
       });
-
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'MemoList' }]
-    });
   };
 
   return (
@@ -65,6 +67,13 @@ const LoginScreen = () => {
             <Text style={styles.footerLink}>会員登録</Text>
           </TouchableOpacity>
         </View>
+      </View>
+      <View>
+        <Button label='push通知テスト'
+          onPress={() => {
+            navigation.navigate('Notification');
+          }}
+        />
       </View>
     </View>
   );

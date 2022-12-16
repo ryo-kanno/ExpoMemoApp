@@ -36,7 +36,7 @@ const MemoListScreen = () => {
       })
       .catch((e) => {
         setLoading(false);
-        Alert.alert(e);
+        Alert.alert('エラーが発生しました');
       });
   }, [isFocused]);
 

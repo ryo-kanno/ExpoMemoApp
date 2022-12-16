@@ -21,7 +21,7 @@ const MemoDetailScreen = () => {
 				setDate(res.Data.updated_at);
 			})
 			.catch((e) => {
-				Alert.alert(e);
+				Alert.alert('エラーが発生しました');
 			});
 	}, []);
 

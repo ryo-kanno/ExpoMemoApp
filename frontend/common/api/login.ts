@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from "axios";
-import webApiClient from ".";
+import webApiClient, { save } from ".";
 import { DefaultNetworkErrorMessage } from "../constants/api";
 
 export const login = async (): Promise<any> => {
@@ -13,10 +13,8 @@ export const login = async (): Promise<any> => {
     webApiClient.get("/sanctum/csrf-cookie").then((res: AxiosResponse) => {
       webApiClient.post(`/api/login`, body)
         .then((res: AxiosResponse) => {
-          localStorage.setItem('auth_token', res.data.access_token)
-          console.log(res.data)
+          save('auth_token', res.data.access_token)
           resolve({ ErrNo: 0, Msg: "ログイン完了" })
-          console.log('login')
         })
         .catch((err: Error | AxiosError) => {
           err instanceof AxiosError

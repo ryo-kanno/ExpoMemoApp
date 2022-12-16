@@ -8,6 +8,7 @@ import MemoDetailScreen from './screens/MemoDetailScreen';
 import MemoEditScreen from './screens/MemoEditScreen';
 import MemoListScreen from './screens/MemoListScreeen';
 import SignUpScreen from './screens/SignUpScreen';
+import NotificationScreen from './screens/NotificationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ export type RootStackParamList = {
   MemoCreate: undefined,
   LogIn: undefined,
   SignUp: undefined,
+  Notification: undefined,
 }
 
 export default function App() {
@@ -42,6 +44,7 @@ export default function App() {
         <Stack.Screen name="MemoCreate" component={MemoCreateScreen} />
         <Stack.Screen name="LogIn" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="Notification" component={NotificationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

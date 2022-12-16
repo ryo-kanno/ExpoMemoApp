@@ -12,18 +12,17 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState('');
 
   const handlePress = async () => {
-    await singUp()
+    await singUp(email, password)
       .then((res: any) => {
-        Alert.alert(res.Msg);
+        Alert.alert('会員登録が完了しました');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemoList' }]
+        });
       })
       .catch((e) => {
-        Alert.alert(e);
+        Alert.alert('エラーが発生しました');
       });
-
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'MemoList' }]
-    });
   };
 
   return (

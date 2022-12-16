@@ -21,7 +21,7 @@ const MemoEditScreen = () => {
 				navigation.goBack()
 			})
 			.catch((e) => {
-				Alert.alert(e);
+				Alert.alert('エラーが発生しました');
 			});
 	}
 

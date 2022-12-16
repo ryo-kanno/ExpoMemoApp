@@ -1,21 +1,20 @@
 import { AxiosError, AxiosResponse } from "axios";
-import webApiClient from ".";
+import webApiClient, { save } from ".";
 import { DefaultNetworkErrorMessage } from "../constants/api";
 
-export const singUp = async (): Promise<any> => {
+export const singUp = async (email: string, password: string): Promise<any> => {
   return new Promise((resolve, reject) => {
-    // resolve({ ErrNo: 0, Msg: "ログアウト完了" })
 
     let body = JSON.stringify({
-      email: "test@persol.co.jp",
-      password: "12341234",
+      email: email,
+      password: password,
     });
 
     webApiClient
       .post(`/api/register`, body)
       .then((res: AxiosResponse) => {
-        resolve({ ErrNo: 0, Msg: "ログアウト完了" })
-        console.log('logout')
+        save('auth_token', res.data.access_token)
+        resolve({ ErrNo: 0, Msg: "会員登録完了" })
       })
       .catch((err: Error | AxiosError) => {
         err instanceof AxiosError

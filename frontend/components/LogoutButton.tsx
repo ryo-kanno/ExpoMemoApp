@@ -20,11 +20,11 @@ const LogoutButton = () => {
     await logout()
       .then((res: any) => {
         if (res.ErrNo == 0) {
-          Alert.alert(res.Msg);
+          Alert.alert('ログアウトしました');
         }
       })
       .catch((e) => {
-        Alert.alert(e);
+        Alert.alert('エラーが発生しました');
       });
   }
 
